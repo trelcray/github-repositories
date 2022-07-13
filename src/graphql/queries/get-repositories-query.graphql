@@ -1,0 +1,26 @@
+fragment Repos on RepositoryConnection {
+	nodes {
+		# Metadata
+		name
+		url
+		description
+
+		# Dates
+		createdAt
+		updatedAt
+		pushedAt    
+	}
+}
+
+query ownedRepos {
+	viewer {
+		original: repositories(
+			ownerAffiliations: OWNER
+			privacy: PUBLIC
+			isFork: false
+			orderBy: { field: UPDATED_AT, direction: DESC }
+		) {
+			...Repos
+		}
+	}
+}
