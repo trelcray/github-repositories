@@ -1,40 +1,15 @@
-import { gql } from "@apollo/client"
-import { useQuery } from "@apollo/client";
-
-interface repositories {
-  id: string;
-  name: string;
+interface repositoryProps {
+  title: string;
   description: string;
   updatedAt: any;
+  isPrivate: boolean;
 }
 
-export function Repositories() {
-
-  
-
-  const REPOSITORY = gql`
-  query REPO {
-    repository(owner: "trelcray", name: "expo-agac") {
-      id
-      name
-      description
-      updatedAt
-    }
-  }
-`;
-
-const { data, loading } = useQuery<{repository: repositories}> ( REPOSITORY )
-console.log(data?.repository.name)
-
-if (loading) {
-  return <p>carregando...</p>
-}
-
-
+export function Repositories(props: repositoryProps) {
 
   return (
-    <div className="w-full h-full px-3 mt-4">
-      <div className="border-y-[1px]">
+    <div className="w-full h-full px-3">
+      <div className="border-b-[1px]">
 
         <section className="flex flex-row mt-4">
           <h1 className="
@@ -42,7 +17,7 @@ if (loading) {
                     font-bold 
                     text-lg"
           >
-            Titulo do repositorio
+            {props.title}
           </h1>
 
           <span className="flex items-center">
@@ -54,18 +29,17 @@ if (loading) {
                         px-2
                         ml-2"
             >
-              Public
+              {props.isPrivate === true ? 'Privado' : 'Público'}
             </p>
           </span>
 
         </section>
 
-        <p className="text-sm mb-2">Descrição</p>
+        <p className="text-sm mb-2">{props.description}</p>
 
-        <p className="text-xs mb-4">update 16 days ago</p>
+        <p className="text-xs mb-4">{props.updatedAt}</p>
 
       </div>
-      <p>{data?.repository.name}</p>
     </div>
   )
 }

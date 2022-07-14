@@ -1,10 +1,12 @@
+import { useState } from 'react';
 import { Dropdown } from './Dropdown'
 
 export function Filters() {
+    const [search, setSearch] = useState('');
 
     return (
-        <div className="flex flex-row px-2 mt-1">
-            <div className=' w-full mx-1'>
+        <div className="flex flex-row mt-1 pb-8 border-b-[1px] mx-3">
+            <div className=' w-full'>
                 <input 
                 type="search"
                 id='Search'
@@ -21,6 +23,7 @@ export function Filters() {
                 focus:border-blue-500
                 focus:ring-blue-500"
                 placeholder="Find a repository..." 
+                onChange={e => setSearch(e.target.value)}
             />
         </div>
         <Dropdown placeholder="Type" title='Select type' attribute='teste'/>

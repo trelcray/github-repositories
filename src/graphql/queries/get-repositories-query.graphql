@@ -1,26 +1,17 @@
-fragment Repos on RepositoryConnection {
-	nodes {
-		# Metadata
-		name
-		url
-		description
-
-		# Dates
-		createdAt
-		updatedAt
-		pushedAt    
-	}
+query search($queryString: String!){
+  search(query: $queryString, type: REPOSITORY, first: 100) {
+      nodes {
+        ... on Repository{
+          id
+          name
+          description
+          isPrivate
+          isArchived
+        }
+      }
+  }
 }
 
-query ownedRepos {
-	viewer {
-		original: repositories(
-			ownerAffiliations: OWNER
-			privacy: PUBLIC
-			isFork: false
-			orderBy: { field: UPDATED_AT, direction: DESC }
-		) {
-			...Repos
-		}
-	}
+{
+  "queryString": "is:public archived:false user:trelcray  in:name sort:name-desc"
 }
