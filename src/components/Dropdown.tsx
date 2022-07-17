@@ -1,10 +1,21 @@
 import { ArrowDown, XCircle, CheckCircle } from 'phosphor-react'
 import { useState } from 'react'
+import { ListTypes, ListOrders } from "./List"
 
 interface Select {
     placeholder: string;
     title: string;
-    attribute: string;
+    types?: [{
+        id: string;
+        all: string;
+        public: string;
+        private: string;
+    }];
+    orders?: [{
+        id: string;
+        name: string;
+        updated: string;
+    }]
 }
 
 export function Dropdown(select: Select) {
@@ -13,8 +24,8 @@ export function Dropdown(select: Select) {
     return (
         <div className='flex items-end flex-col'>
             <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="
+                onClick={() => setIsOpen(!isOpen)}
+                className="
             flex
             flex-row
             items-center
@@ -32,6 +43,7 @@ export function Dropdown(select: Select) {
             {isOpen &&
                 <div className='absolute w-60'>
                     <div className='
+                    select-none
                     absolute 
                     border 
                     border-solid 
@@ -57,16 +69,15 @@ export function Dropdown(select: Select) {
                                 onClick={() => setIsOpen(!isOpen)}
                             />
                         </section>
+                        <ul onClick={() => setIsOpen(!isOpen)}>
+                            {select?.types?.map((item) => (
+                                <ListTypes key={item.id} all={item.all} public={item.public} private={item.private} />
+                            ))}
 
-                        <section className='
-                        flex 
-                        flex-row 
-                        items-center 
-                        border-b pl-3'
-                        >
-                            <CheckCircle size={16} color="#81d8f7" />
-                            <p className='ml-2' >{select.attribute}</p>
-                        </section>
+                            {select?.orders?.map((item) => (
+                                <ListOrders key={item.id} name={item.name} updated={item.updated} />
+                            ))}
+                        </ul>
                     </div>
 
                     <div className='
@@ -75,9 +86,8 @@ export function Dropdown(select: Select) {
                     bottom-0 
                     left-0 
                     right-0'
-                    onClick={() => setIsOpen(!isOpen)}
+                        onClick={() => setIsOpen(!isOpen)}
                     />
-
                 </div>
 
             }

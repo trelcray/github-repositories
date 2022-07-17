@@ -1,59 +1,38 @@
-import { Filters } from "../components/FIlters"
+import { gql } from "@apollo/client";
+import { useState } from "react";
+import { Filters } from "../components/Filters"
 import { Repositories } from "../components/Repositories"
-import { gql } from "@apollo/client"
-import { useQuery } from "@apollo/client";
 
-interface repositories {
-  nodes: [{
-    id: string;
-    name: string;
-    description: string;
-    isPrivate: boolean;
-    isArchived: boolean;
-    updatedAt: any;
-  }]
-}
-
-const REPOSITORY = gql`
-query repositories($queryString: string!){
-search(query: "is:public archived:false user:trelcray  in:name sort:name-desc", type: REPOSITORY, first: 100) {
-    nodes {
-      ... on Repository{
-        id
-        name
-        description
-        isPrivate
-        isArchived
+export const GET_REPOSITORIES_QUERY = gql `
+query search($query: String!){
+  search(query: $query, type: REPOSITORY, first: 100) {
+      nodes {
+        ... on Repository{
+          id
+          name
+          description
+          isPrivate
+          isArchived
+          updatedAt
+        }
       }
-    }
+  }
 }
-}
-`;
+`
+
 
 export function Index() {
+  const [query, setQuery] = useState("");
 
-const { data, loading, error} = useQuery<{ search: repositories }>(REPOSITORY)
-const props = data?.search.nodes
-
-  if (loading) return <p>carregando...</p>
-  if (error) return <div>error</div>;
+  function searchData(event: any) {
+    setQuery(event.target.value);
+  }
 
   return (
     <div>
-      <Filters />
-      {props?.map(repository => {
-        return (
-          <Repositories
-            key={repository.id}
-            title={repository.name}
-            description={repository.description}
-            updatedAt={repository.updatedAt}
-            isPrivate={repository.isPrivate} />
-        )
-      }
-      )
-      }
-
+      <Filters setSearch={searchData}/>
+      <Repositories search={query}/>
+      {query}
     </div>
   )
 }
