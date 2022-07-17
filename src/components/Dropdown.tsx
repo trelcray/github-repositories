@@ -1,4 +1,4 @@
-import { ArrowDown, XCircle, CheckCircle } from 'phosphor-react'
+import { ArrowDown, XCircle } from 'phosphor-react'
 import { useState } from 'react'
 import { ListTypes, ListOrders } from "./List"
 

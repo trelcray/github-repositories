@@ -1,7 +1,7 @@
 import { Repository } from "../components/Repository"
 import { useContext } from "react";
 import { useQuery } from "@apollo/client";
-import { GET_REPOSITORIES_QUERY } from "../pages/Index"
+import { GET_REPOSITORIES_QUERY } from "../graphql/query";
 import { SearchContext } from "../contexts";
 import { CircleNotch } from "phosphor-react";
 
@@ -16,11 +16,9 @@ interface repositories {
   }]
 }
 
-interface Searchprops {
-  search: string;
-}
 
-export function Repositories(search: Searchprops) {
+
+export function Repositories(): JSX.Element {
   const { searchData, is, sort } = useContext(SearchContext)
 
   const isPrivacity = is
@@ -41,7 +39,7 @@ export function Repositories(search: Searchprops) {
     </div>
     <p>Carregando...</p>
   </div>
-  if (error) return `Error: ${error}`;
+  if (error) return <p>error: Ocorreu um erro ao carregar os dados</p>;
 
   return (
     <div>

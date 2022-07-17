@@ -1,5 +1,4 @@
-import { AlignLeft } from 'phosphor-react';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { SearchContext } from '../contexts';
 import { Dropdown } from './Dropdown'
 
