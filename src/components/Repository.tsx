@@ -1,6 +1,9 @@
 import { Irepository } from "../@types/repository";
+import {format} from 'date-fns'
 
 export function Repository(props: Irepository) {
+
+  const dateFormatted = format(new Date(props.updatedAt), "EEEE' • 'd' de 'MMMM' • 'k'h'mm")
   
   return (
     <div className="w-full h-full px-3">
@@ -33,7 +36,7 @@ export function Repository(props: Irepository) {
 
         <p className="text-sm mb-2">{props.description}</p>
 
-        <p className="text-xs mb-2">{props.updatedAt}</p>
+        <p className="text-xs mb-2">{dateFormatted}</p>
 
       </div>
     </div>

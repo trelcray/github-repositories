@@ -1,6 +1,6 @@
 export interface Irepository {
     title: string;
     description: string;
-    updatedAt: string;
+    updatedAt: number | Date | string;
     isPrivate: boolean;
   }
