@@ -2,7 +2,7 @@
 
 GitHub Repositories is an application to filter and search my repositories, in this project i learned improved my fundamentals in React, TailWindCSS and Graphql, and I learned to use context api.
 
-see the deply at: https://trelcray-github-io.vercel.app/
+see the depoly at: https://trelcray-github-io.vercel.app/
 
 ### consists of the following features:
 
