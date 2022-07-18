@@ -6,7 +6,7 @@ export function Repository(props: Irepository) {
     <div className="w-full h-full px-3">
       <div className="border-b-[1px]">
 
-        <section className="flex flex-row mt-4">
+        <section className="flex flex-row mt-2">
           <h1 
           className="
         text-blue-500 
@@ -33,7 +33,7 @@ export function Repository(props: Irepository) {
 
         <p className="text-sm mb-2">{props.description}</p>
 
-        <p className="text-xs mb-4">{props.updatedAt}</p>
+        <p className="text-xs mb-2">{props.updatedAt}</p>
 
       </div>
     </div>

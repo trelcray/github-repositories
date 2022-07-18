@@ -5,12 +5,14 @@ import { GET_REPOSITORIES_QUERY } from "../graphql/query";
 import { SearchContext } from "../contexts";
 import { CircleNotch } from "phosphor-react";
 import { Irepositories } from "../@types/repositories";
+import { useDebounce } from "../hooks/UseDebounce";
 
 export function Repositories(): JSX.Element {
   const { searchData, is, sort } = useContext(SearchContext)
+  const teste = useDebounce(searchData)
 
   const isPrivacity = is
-  const inName = searchData
+  const inName = teste
   const sorted = sort
   const abc = `is:${isPrivacity} user:trelcray ${inName}in:name sort:${sorted}-asc`
 
@@ -19,7 +21,6 @@ export function Repositories(): JSX.Element {
     variables: { query: `${abc}` }
   });
   const props = data?.search.nodes
-
 
   if (loading) {
     return (
@@ -48,6 +49,7 @@ export function Repositories(): JSX.Element {
     <div>
       {props?.length ? props?.map(repository => {
         return (
+          <a className="cursor-pointe" href={repository.url}>
           <Repository
           key={repository.id}
           title={repository.name}
@@ -55,6 +57,7 @@ export function Repositories(): JSX.Element {
           updatedAt={repository.updatedAt}
           isPrivate={repository.isPrivate} 
           />
+          </a>
         )
       }
       )

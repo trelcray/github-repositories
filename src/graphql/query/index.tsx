@@ -11,6 +11,7 @@ query search($query: String!){
           isPrivate
           isArchived
           updatedAt
+          url
         }
       }
   }

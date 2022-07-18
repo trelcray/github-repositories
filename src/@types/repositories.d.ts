@@ -6,5 +6,6 @@ export interface Irepositories {
       isPrivate: boolean;
       isArchived: boolean;
       updatedAt: string;
+      url: string;
     }]
   }
