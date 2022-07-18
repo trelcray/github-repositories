@@ -18,7 +18,7 @@ export const SearchContext = createContext({} as contextProps);
 export function ContextProvider({children}: ContextProviderProps) {
     const [searchData, setSearchData] = useState("");
     const [is, setIs] = useState("");
-    const [sort, setSort] = useState("");
+    const [sort, setSort] = useState("name");
     
     return (
       <SearchContext.Provider value={{searchData, setSearchData, is, setIs, sort, setSort}}>

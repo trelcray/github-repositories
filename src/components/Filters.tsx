@@ -1,25 +1,7 @@
 import { useContext } from 'react';
+import { Iorder, Itype } from '../@types/filters';
 import { SearchContext } from '../contexts';
 import { Dropdown } from './Dropdown'
-
-interface Itype {
-    types: [{
-        id: string;
-        all: string;
-        public: string;
-        private: string;
-    }
-]
-}
-
-interface Iorder {
-    orders:[ {
-        id: string;
-        name: string;
-        updated: string;
-    }
-]
-}
 
 export function Filters() {
     const { searchData, setSearchData } = useContext(SearchContext)
@@ -51,10 +33,10 @@ export function Filters() {
         <div className="flex flex-row mt-1 pb-8 border-b-[1px] mx-3">
             <div className=' w-full'>
                 <input
-                    type="search"
-                    id='Search'
-                    value={searchData}
-                    className="
+                type="search"
+                id='Search'
+                value={searchData}
+                className="
                 bg-inherit
                 border
                 border-gray-400
@@ -66,16 +48,29 @@ export function Filters() {
                 focus:ring-1
                 focus:border-blue-500
                 focus:ring-blue-500"
-                    placeholder="Find a repository..."
-                    onChange={e => setSearchData(e.target.value)}
+                placeholder="Find a repository..."
+                onChange={e => setSearchData(e.target.value)}
                 />
             </div>
+
             {getTypes.map((item) => (
-             <Dropdown placeholder="Type" key={item.id} title='Select type' types={[item]} /> 
-             ))}
-            {getOrders.map((item) => (
-            <Dropdown placeholder="Sort" key={item.id} title='Select order' orders={[item]}/>
+                <Dropdown
+                placeholder="Type"
+                key={item.id}
+                title='Select type'
+                types={[item]}
+                />
             ))}
+
+            {getOrders.map((item) => (
+                <Dropdown
+                placeholder="Sort"
+                key={item.id}
+                title='Select order'
+                orders={[item]}
+                />
+            ))}
+
         </div>
 
     )

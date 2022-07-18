@@ -1,91 +1,129 @@
 import { CheckCircle } from 'phosphor-react'
 import { useContext } from 'react';
+import { IlistOrders, IlistTypes } from '../@types/list';
 import { SearchContext } from '../contexts';
 
-interface ListTypesProps {
-    all: string;
-    public: string;
-    private: string;
-}
-
-interface ListOrdersProps {
-    name: string;
-    updated: string;
-}
-
-export function ListTypes(list: ListTypesProps) {
+export function ListTypes(list: IlistTypes) {
     const {is, setIs} = useContext(SearchContext);
 
     return (
         <div>
             <li
-                onClick={() => setIs("")}
-                className='
-            flex 
-            flex-row 
-            items-center 
+            onClick={() => setIs("")}
+            className='
             border-b pl-3
             cursor-pointer
-            hover:bg-slate-600'>
-                <CheckCircle size={16} color="#81d8f7" />
-                <p className='ml-2'>{list.all}</p>
+            hover:bg-slate-600'
+            >
+                { is == "" ? (
+                <span className='
+                flex 
+                flex-row 
+                items-center '
+                >
+                    <CheckCircle size={16} color="#81d8f7" />
+                    <p className='ml-2'>{list.all}</p>
+                </span>
+                 ) 
+                : 
+                    <p className='ml-6'>{list.all}</p>
+                }
+                
             </li>
             <li
-                onClick={() => setIs("public")}
-                className='
-            flex 
-            flex-row 
-            items-center 
+            onClick={() => setIs("public")}
+            className='
             border-b pl-3
             cursor-pointer
             hover:bg-slate-600'>
-                <CheckCircle size={16} color="#81d8f7" />
-                <p className='ml-2'>{list.public}</p>
+                { is == "public" ? (
+                <span className='
+                flex 
+                flex-row 
+                items-center '
+                >
+                    <CheckCircle size={16} color="#81d8f7" />
+                    <p className='ml-2'>{list.public}</p>
+                </span>
+                 ) 
+                : 
+                    <p className='ml-6'>{list.public}</p>
+                }
             </li>
             <li
-                onClick={() => setIs("private")}
-                className='
-            flex 
-            flex-row 
-            items-center 
+            onClick={() => setIs("private")}
+            className='
             border-b pl-3
             cursor-pointer
             hover:bg-slate-600'>
-                <CheckCircle size={16} color="#81d8f7" />
-                <p className='ml-2'>{list.private}</p>
+                { is == "private" ? (
+                <span className='
+                flex 
+                flex-row 
+                items-center '
+                >
+                    <CheckCircle size={16} color="#81d8f7" />
+                    <p className='ml-2'>{list.private}</p>
+                </span>
+                 ) 
+                : 
+                    <p className='ml-6'>{list.private}</p>
+                }
+
             </li>
         </div>
     )
 }
-export function ListOrders(list: ListOrdersProps) {
+export function ListOrders(list: IlistOrders) {
     const {sort, setSort} = useContext(SearchContext);
 
     return (
         <div>
             <li
-                className='
-            flex 
-            flex-row 
-            items-center 
+            className='
             border-b pl-3
             cursor-pointer
             hover:bg-slate-600'
-                onClick={() => setSort("name")}>
-                <CheckCircle size={16} color="#81d8f7" />
-                <p className='ml-2'>{list.name}</p>
+            onClick={() => setSort("name")}
+            >
+
+                { sort == "name" ? (
+                    <span className='
+                    flex 
+                    flex-row 
+                    items-center '
+                    >
+                        <CheckCircle size={16} color="#81d8f7" />
+                        <p className='ml-2'>{list.name}</p>
+                    </span>
+                 ) 
+                : 
+                    <p className='ml-6'>{list.name}</p>
+                }
+
             </li>
+
             <li
-                className='
-            flex 
-            flex-row 
-            items-center 
+            className='
             border-b 
             pl-3
             cursor-pointer
             hover:bg-slate-600'
-                onClick={() => setSort("updated")}>
-                <CheckCircle size={16} color="#81d8f7" />
-                <p className='ml-2'>{list.updated}</p>
+            onClick={() => setSort("updated")}
+            >
+                { sort == "updated" ? (
+                    <span className='
+                    flex 
+                    flex-row 
+                    items-center '
+                    >
+                        <CheckCircle size={16} color="#81d8f7" />
+                        <p className='ml-2'>{list.updated}</p>
+                    </span>
+                 ) 
+                : 
+                    <p className='ml-6'>{list.updated}</p>
+                }
             </li>
         </div>
     )
