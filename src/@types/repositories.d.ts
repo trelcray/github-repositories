@@ -1,5 +1,6 @@
 export interface Irepositories {
-    nodes: [{
+  nodes: [
+    {
       id: string;
       name: string;
       description: string;
@@ -7,5 +8,6 @@ export interface Irepositories {
       isArchived: boolean;
       updatedAt: string;
       url: string;
-    }]
-  }
+    }
+  ];
+}

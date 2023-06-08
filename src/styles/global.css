@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 body {
-    @apply bg-gray-900 text-gray-100;
-    -webkit-font-smoothing: antialiased;
+  @apply bg-gray-900 text-gray-100;
+  -webkit-font-smoothing: antialiased;
 }
 
-#Search::-webkit-search-cancel-button{
-    @apply bg-xCircle h-5 w-5 rounded-lg;  
-    -webkit-appearance: none;    
+#Search::-webkit-search-cancel-button {
+  @apply h-5 w-5 rounded-lg bg-xCircle;
+  -webkit-appearance: none;
 }

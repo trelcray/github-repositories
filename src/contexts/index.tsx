@@ -1,28 +1,43 @@
-import { createContext, useState } from "react";
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useState,
+} from "react";
 
-interface ContextProviderProps{
-    children: JSX.Element | JSX.Element[];
+interface ContextProviderProps {
+  children: ReactNode;
 }
 
 interface contextProps {
-  searchData?: string,
-  setSearchData: string | any,
-  is?: string,
-  setIs: string | any;
-  sort?: string,
-  setSort: string | any;
+  searchData?: string;
+  setSearchData: Dispatch<SetStateAction<string>>;
+  isType?: string;
+  setIsType: Dispatch<SetStateAction<string>>;
+  isSort?: string;
+  setIsSort: Dispatch<SetStateAction<string>>;
 }
 
 export const SearchContext = createContext({} as contextProps);
 
-export function ContextProvider({children}: ContextProviderProps) {
-    const [searchData, setSearchData] = useState("");
-    const [is, setIs] = useState("");
-    const [sort, setSort] = useState("name");
-    
-    return (
-      <SearchContext.Provider value={{searchData, setSearchData, is, setIs, sort, setSort}}>
-        {children}
-      </SearchContext.Provider>
-    )
-  }
+export function ContextProvider({ children }: ContextProviderProps) {
+  const [searchData, setSearchData] = useState("");
+  const [isType, setIsType] = useState("ALL");
+  const [isSort, setIsSort] = useState("NAME");
+
+  return (
+    <SearchContext.Provider
+      value={{
+        searchData,
+        setSearchData,
+        isType,
+        setIsType,
+        isSort,
+        setIsSort,
+      }}
+    >
+      {children}
+    </SearchContext.Provider>
+  );
+}

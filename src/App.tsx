@@ -1,8 +1,10 @@
-import { ApolloProvider } from "@apollo/client"
-import { BrowserRouter } from "react-router-dom"
-import { ContextProvider, SearchContext } from "./contexts"
-import { client } from "./lib/apollo"
-import { Router } from "./router"
+import { BrowserRouter } from "react-router-dom";
+
+import { ApolloProvider } from "@apollo/client";
+
+import { ContextProvider } from "./contexts";
+import { client } from "./lib/apollo";
+import { Router } from "./router";
 
 export function App() {
   return (
@@ -14,7 +16,6 @@ export function App() {
           </BrowserRouter>
         </ContextProvider>
       </ApolloProvider>
-
     </div>
-  )
+  );
 }

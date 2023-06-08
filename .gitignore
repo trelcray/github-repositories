@@ -25,4 +25,5 @@ dist-ssr
 
 .README.md
 .env.local
+.env
 .vercel

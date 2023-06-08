@@ -1,77 +1,101 @@
-import { useContext } from 'react';
-import { Iorder, Itype } from '../@types/filters';
-import { SearchContext } from '../contexts';
-import { Dropdown } from './Dropdown'
+import { FC, useContext } from "react";
 
-export function Filters() {
-    const { searchData, setSearchData } = useContext(SearchContext)
+import { DropdownMenuItemIndicator } from "@radix-ui/react-dropdown-menu";
+import { ArrowDown } from "phosphor-react";
 
-    const type: Itype = {
-        types: [{
-            id: "1",
-            all: "ALL",
-            public: "PUBLIC",
-            private: "PRIVATE"
-        }
-        ]
-    }
-    const { types } = type
-    const getTypes = types
+import { SearchContext } from "../contexts";
+import { Button } from "./ui/Button";
+import {
+  DropdownMenu,
+  DropdownMenuArrow,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/DropdownMenu";
 
-    const order: Iorder = {
-        orders: [{
-            id: "2",
-            name: "NAME",
-            updated: "UPDATED"
-        }
-        ]
-    }
-    const { orders } = order
-    const getOrders = orders
+export const Filters: FC = () => {
+  const { searchData, setSearchData, isSort, setIsSort, setIsType, isType } =
+    useContext(SearchContext);
 
-    return (
-        <div className="flex flex-row mt-1 pb-8 border-b-[1px] mx-3">
-            <div className=' w-full'>
-                <input
-                type="search"
-                id='Search'
-                value={searchData}
-                className="
-                bg-inherit
-                border
-                border-gray-400
-                rounded-md
-                w-full
-                py-1
-                px-2
-                focus:outline
-                focus:ring-1
-                focus:border-blue-500
-                focus:ring-blue-500"
-                placeholder="Find a repository..."
-                onChange={e => setSearchData(e.target.value)}
-                />
-            </div>
+  const types = ["ALL", "PUBLIC", "PRIVATE"];
+  const orders = ["NAME", "UPDATE"];
 
-            {getTypes.map((item) => (
-                <Dropdown
-                placeholder="Type"
-                key={item.id}
-                title='Select type'
-                types={[item]}
-                />
-            ))}
+  return (
+    <div className="mt-1 flex flex-row gap-2 border-b-[1px] pb-8">
+      <div className="w-full">
+        <input
+          type="search"
+          id="Search"
+          value={searchData}
+          className="w-full rounded-md border border-gray-400 bg-inherit px-2 
+          py-1 focus:border-blue-500 focus:outline focus:ring-1 
+          focus:ring-blue-500"
+          placeholder="Find a repository..."
+          onChange={(e) => setSearchData(e.target.value)}
+        />
+      </div>
 
-            {getOrders.map((item) => (
-                <Dropdown
-                placeholder="Sort"
-                key={item.id}
-                title='Select order'
-                orders={[item]}
-                />
-            ))}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button>
+            Type <ArrowDown className="h-4 w-4 text-white" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuPortal>
+          <DropdownMenuContent className="w-56" sideOffset={5}>
+            <DropdownMenuLabel>
+              <h2>Select Type</h2>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              {types.map((item, i) => (
+                <DropdownMenuCheckboxItem
+                  checked={isType === item}
+                  onClick={() => setIsType(item)}
+                  key={i}
+                >
+                  <DropdownMenuItemIndicator />
+                  <span>{item}</span>
+                </DropdownMenuCheckboxItem>
+              ))}
+            </DropdownMenuGroup>
+            <DropdownMenuArrow className="fill-gray-200" />
+          </DropdownMenuContent>
+        </DropdownMenuPortal>
+      </DropdownMenu>
 
-        </div>
-
-    )
-}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button>
+            Sort <ArrowDown className="h-4 w-4 text-white" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuPortal>
+          <DropdownMenuContent className="w-56" sideOffset={5}>
+            <DropdownMenuLabel>
+              <h2>Select Order</h2>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              {orders.map((item, i) => (
+                <DropdownMenuCheckboxItem
+                  checked={isSort === item}
+                  key={i}
+                  onClick={() => setIsSort(item)}
+                >
+                  <DropdownMenuItemIndicator />
+                  <span>{item}</span>
+                </DropdownMenuCheckboxItem>
+              ))}
+            </DropdownMenuGroup>
+            <DropdownMenuArrow className="fill-gray-200" />
+          </DropdownMenuContent>
+        </DropdownMenuPortal>
+      </DropdownMenu>
+    </div>
+  );
+};
