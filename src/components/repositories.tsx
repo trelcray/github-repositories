@@ -4,24 +4,32 @@ import { useQuery } from "@apollo/client";
 import { CircleNotch } from "phosphor-react";
 
 import { Irepositories } from "../@types/repositories";
-import { Repository } from "../components/Repository";
+import { Repository } from "../components/repository";
 import { SearchContext } from "../contexts";
 import { GET_REPOSITORIES_QUERY } from "../graphql/query";
-import { useDebounce } from "../hooks/UseDebounce";
+import { UseCreatePagination } from "../hooks/use-create-pagination";
+import { useDebounce } from "../hooks/use-debounce";
+import { Button } from "./ui/button";
 
 export const Repositories: FC = () => {
   const { searchData, isType, isSort } = useContext(SearchContext);
   const debouncedName = useDebounce(searchData);
 
-  const abc = `is:${isType} user:trelcray ${debouncedName}in:name sort:${isSort}-asc`;
+  const queryString = `is:${isType} user:trelcray ${debouncedName}in:name sort:${isSort}-asc`;
 
   const { data, loading, error } = useQuery<{ search: Irepositories }>(
     GET_REPOSITORIES_QUERY,
     {
-      variables: { query: `${abc}` },
+      variables: { query: `${queryString}` },
     }
   );
+
   const repositories = data?.search.nodes ?? [];
+
+  const { pagination, visibleResults, totalPages } = UseCreatePagination(
+    repositories,
+    5
+  );
 
   if (loading) {
     return (
@@ -39,8 +47,8 @@ export const Repositories: FC = () => {
 
   return (
     <div>
-      {repositories.length ? (
-        repositories.map((repository, i) => {
+      {visibleResults.length > 0 ? (
+        visibleResults?.map((repository, i) => {
           return (
             <a
               className="cursor-pointer"
@@ -60,8 +68,24 @@ export const Repositories: FC = () => {
           );
         })
       ) : (
-        <div className="mx-3 h-full border-b-[1px]">
+        <div className="h-full border-b-[1px]">
           <p className="ml-3 py-6 font-bold">Has no data to show!</p>
+        </div>
+      )}
+      {visibleResults.length > 0 && (
+        <div className="mt-2 flex w-full justify-end gap-4">
+          <Button
+            disabled={pagination.active === 1}
+            onClick={pagination.previous}
+          >
+            Prev
+          </Button>
+          <Button
+            disabled={pagination.active === totalPages}
+            onClick={pagination.next}
+          >
+            Next
+          </Button>
         </div>
       )}
     </div>

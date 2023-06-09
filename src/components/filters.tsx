@@ -4,7 +4,7 @@ import { DropdownMenuItemIndicator } from "@radix-ui/react-dropdown-menu";
 import { ArrowDown } from "phosphor-react";
 
 import { SearchContext } from "../contexts";
-import { Button } from "./ui/Button";
+import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuArrow,
@@ -15,7 +15,7 @@ import {
   DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./ui/DropdownMenu";
+} from "./ui/dropdown-menu";
 
 export const Filters: FC = () => {
   const { searchData, setSearchData, isSort, setIsSort, setIsType, isType } =
